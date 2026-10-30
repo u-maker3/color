@@ -1,147 +1,177 @@
-<!doctype html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>今のあんた、何色なん。 v3</title>
-<style>
-:root{--ink:#342d3d;--paper:#fffaf4;--pink:#ff5f8f;--shadow:0 14px 35px rgba(68,43,72,.14)}
-*{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;color:var(--ink);background:
-radial-gradient(circle at 15% 5%,#ffe5ef 0 10%,transparent 25%),
-radial-gradient(circle at 90% 15%,#fff0b7 0 10%,transparent 25%),
-linear-gradient(160deg,#fffaf4,#f8f1ff);min-height:100vh}
-.wrap{width:min(720px,100%);margin:auto;padding:22px 16px 48px}.card{background:rgba(255,255,255,.9);border:2px solid #fff;border-radius:28px;padding:22px;box-shadow:var(--shadow);text-align:center}
-h1{font-size:clamp(30px,8vw,52px);line-height:1.05;margin:10px 0} .sub{font-weight:800;color:#765f79}.hero{width:min(290px,80%);max-height:280px;object-fit:contain;margin:4px auto 8px;display:block}
-button{font:inherit;border:0;cursor:pointer}.mainbtn{width:100%;padding:17px;border-radius:999px;background:linear-gradient(90deg,#ff5f8f,#ff8c61);color:#fff;font-weight:900;font-size:19px;box-shadow:0 8px 18px #ff769455}
-.screen{display:none}.screen.active{display:block;animation:pop .35s ease}@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
-.progress{display:flex;gap:8px;justify-content:center;margin:12px}.dot{width:12px;height:12px;border-radius:50%;background:#ddd}.dot.on{background:#ff5f8f;transform:scale(1.2)}
-.colors{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.color{min-height:82px;border-radius:20px;border:3px solid rgba(255,255,255,.85);box-shadow:0 5px 13px #463c4a20;font-weight:900;text-shadow:0 1px 3px #fff9;transition:.15s}.color:active{transform:scale(.93)}.dark{color:#fff;text-shadow:0 1px 3px #000}
-.picks{display:flex;justify-content:center;gap:9px;min-height:40px}.pick{width:36px;height:36px;border-radius:50%;border:3px solid white;box-shadow:0 2px 7px #0003}
-.loader{padding:35px 5px}.spin{font-size:52px;display:inline-block;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-.result{background:#fff;border:3px solid #ffd6e3;border-radius:26px;padding:18px;text-align:left}.result h2{text-align:center;margin:4px 0 16px}.box{background:#fff8fb;border-radius:18px;padding:13px 15px;margin:10px 0}.label{font-weight:900;color:#d84775}.big{font-size:21px;font-weight:900;line-height:1.55;background:linear-gradient(135deg,#fff0a9,#ffe1ec);border-radius:18px;padding:16px;margin:13px 0}.extra{font-weight:900;text-align:center;padding:15px;border:2px dashed #ff779e;border-radius:18px}.actions{display:grid;gap:9px;margin-top:14px}.secondary{padding:14px;border-radius:999px;background:#eee7f4;font-weight:900;color:#4b3c52}.line{background:#06c755;color:#fff;text-decoration:none;padding:14px;border-radius:999px;font-weight:900;text-align:center}.note{font-size:12px;color:#857986;margin-top:16px;line-height:1.5}
-@media(min-width:520px){.colors{grid-template-columns:repeat(4,1fr)}}
-</style>
-</head>
-<body><main class="wrap">
-<section id="start" class="screen active"><div class="card">
-<img class="hero" src="umeko_top.PNG" alt="うめこ" onerror="this.style.display='none'">
-<div class="sub">考えたら負け。直感でいけ🤣</div>
-<h1>今のあんた、<br>何色なん。</h1>
-<p><b>3色選んだら、だいたいバレる。</b><br>12色から「なんとなく」で3回選んでな。</p>
-<button class="mainbtn" onclick="begin()">中身、バラされに行く🤣</button>
-<div class="note">遊びとして楽しむカラー診断です。医療・心理検査ではありません。入力内容は外部へ送信しません。</div>
-</div></section>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="apple-touch-icon" sizes="180x180" href="astro_icon.PNG"><link rel="icon" type="image/png" href="astro_icon.PNG"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="星のサイコロ"><meta name="theme-color" content="#15132c"><title>星のサイコロ相談室｜うめこ屋</title><style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;color:#f9f3ff;background:#121127}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0%,#46316b 0,transparent 35%),radial-gradient(circle at 90% 20%,#2b466b 0,transparent 35%),#121127;min-height:100vh}.app{max-width:620px;margin:auto;padding:24px 17px 55px}header{text-align:center;padding:12px 0 18px}.eyebrow{font-size:11px;letter-spacing:4px;color:#d9b8ff}h1{font-size:27px;margin:8px 0;color:#ffe3a1}header p{color:#d2c6e2;font-size:13px}.panel{border:1px solid #ffffff25;background:#ffffff0c;border-radius:22px;padding:17px;margin:14px 0;box-shadow:0 9px 35px #0002}h2{font-size:17px;margin:0 0 13px;color:#ffe1a7}.small{font-size:12px;color:#c8bdd7;line-height:1.8}.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}.choice,.mode,button{font:inherit}.choice{padding:11px 8px;border:1px solid #ffffff2c;border-radius:13px;background:#ffffff0a;color:#f9f3ff;text-align:left;font-size:13px}.choice.active{background:#7551a5;border-color:#d6afff}.choices{max-height:320px;overflow-y:auto;grid-template-columns:1fr}.choice:last-child{grid-column:auto}.modebar{display:flex;gap:8px}.mode{flex:1;background:#ffffff12;color:#fff;border:1px solid #ffffff33;padding:11px 5px;border-radius:12px;font-weight:700;font-size:13px}.mode.active{background:#c99af1;color:#241032}.diceRow{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:18px 0}.die{aspect-ratio:1;background:linear-gradient(145deg,#fff9ef,#e7d8fa);border:3px solid #e7b968;border-radius:18px;color:#3b2552;display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 6px 0 #8d6c9d;min-width:0}.die .sym{font-size:34px;line-height:1.15}.die strong{font-size:13px;margin-top:5px}.die small{font-size:10px;color:#685478}.die.rolling{animation:shake .13s linear infinite alternate}@keyframes shake{from{transform:rotate(-7deg) translateY(-3px)}to{transform:rotate(7deg) translateY(3px)}}.primary{width:100%;border:0;background:linear-gradient(120deg,#f7c87b,#f4a4db);color:#38233e;font-size:17px;font-weight:800;padding:16px;border-radius:16px;box-shadow:0 5px 0 #98719e}.primary:disabled{opacity:.6}.result{display:none}.result.show{display:block}.tag{display:inline-block;background:#76519a;border-radius:20px;padding:6px 11px;font-size:12px;margin-bottom:10px}.lead{font-size:19px;font-weight:800;line-height:1.65;color:#ffe6aa}.bodytext{font-size:14px;line-height:1.95;white-space:pre-line}.black{background:#1c1523;border:1px solid #9d638d;border-radius:15px;padding:15px}.details button{width:100%;text-align:left;background:#ffffff10;border:1px solid #ffffff24;border-radius:12px;padding:13px;color:white;margin:5px 0;font-size:14px}.details .inner{display:none;padding:10px 12px 15px;font-size:13px;line-height:1.8;color:#e6d9f4}.details .inner.open{display:block}.footer{text-align:center;color:#aa9bb9;font-size:11px;line-height:1.8;margin-top:20px}.actions{display:flex;gap:8px}.actions button{flex:1;background:#ffffff18;color:#fff;border:1px solid #ffffff45;border-radius:12px;padding:13px;font-size:13px}textarea{width:100%;resize:vertical;min-height:58px;background:#ffffff12;border:1px solid #ffffff36;border-radius:12px;color:white;padding:12px;font:inherit;font-size:14px}textarea::placeholder{color:#bfb2ce}.hidden{display:none!important}
+/* CELESTIAL DELUXE: ダイスの光と着地演出 */
+.diceRow{border:2px solid #eac67c!important;box-shadow:0 0 0 3px #6e477d66,0 0 36px #d7a1ff66,inset 0 0 60px #000b!important}
+.diceRow::after{content:"✦  ☉  ✧  ☽  ✦";position:absolute;left:0;right:0;top:8px;text-align:center;letter-spacing:15px;color:#f5d7a4a0;pointer-events:none;font-size:15px}
+body.is-rolling .diceRow{animation:cosmicPulse .8s ease-in-out infinite alternate}
+@keyframes cosmicPulse{to{box-shadow:0 0 0 3px #b17be688,0 0 55px #f2c783aa,inset 0 0 65px #512c7e!important}}
+@media(prefers-reduced-motion:reduce){body.is-rolling .diceRow{animation:none}}
+/* 物理感のあるダイス盤面 */
+.diceRow{display:block!important;position:relative!important;padding:0!important;margin:12px 0 15px!important;overflow:hidden;border-radius:24px;background:radial-gradient(ellipse at 50% 42%,#42335e,#15152f 75%);border:1px solid #e8c88575;box-shadow:inset 0 0 50px #08091c,0 16px 28px #0005}
+.diceRow:before{display:none!important}#diceStage{display:block;width:100%;height:310px;touch-action:manipulation}.diceRow .die{display:none!important}
+@media(max-width:390px){#diceStage{height:275px}}
+/* 星降る演出版 */
+body{overflow-x:hidden;background:radial-gradient(ellipse at 50% 12%,#5b3978 0%,#201a43 38%,#0b1025 90%);transition:background .55s}
+body:before,body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(2px 2px at 12% 18%,#fff 98%,transparent),radial-gradient(2px 2px at 76% 28%,#fbd79c 98%,transparent),radial-gradient(1px 1px at 40% 76%,#fff 98%,transparent),radial-gradient(2px 2px at 88% 82%,#fff 98%,transparent),radial-gradient(1px 1px at 20% 62%,#fff 98%,transparent);background-size:280px 330px;animation:twinkle 5s ease-in-out infinite alternate;opacity:.65}
+body:after{background-size:390px 440px;transform:rotate(16deg);animation-delay:-2s;opacity:.35}
+@keyframes twinkle{to{opacity:.15;transform:translateY(-15px)}}
+.app{position:relative;z-index:1}.panel{backdrop-filter:blur(10px);border:1px solid #e5bf793b;background:linear-gradient(145deg,#33274cba,#17172dc9);box-shadow:0 14px 35px #0005}
+header{position:relative}h1{text-shadow:0 0 24px #f8c4778c}.eyebrow{color:#f3ce91}
+.diceRow{position:relative;padding:23px 3px 27px;margin:10px 0 15px;isolation:isolate}
+.diceRow:before{content:"✧  ☼  ✧";position:absolute;inset:0;z-index:-1;border-radius:50%;border:1px solid #e7c77e55;box-shadow:0 0 0 12px #e7c77e0b,0 0 0 23px #e7c77e0a,inset 0 0 40px #d1a6ff3b;display:flex;align-items:center;justify-content:center;color:#f9dc9750;font-size:50px;letter-spacing:20px;animation:orbit 25s linear infinite}
+@keyframes orbit{to{transform:rotate(360deg)}}
+.die{position:relative;transform-style:preserve-3d;background:linear-gradient(135deg,#fffdf6 0%,#e9d6ff 52%,#cba6e8 100%);border:2px solid #f3d294;border-radius:20px;box-shadow:inset -8px -8px 18px #674a8d55,inset 5px 5px 13px #fff,0 8px 0 #81638c,0 14px 24px #0008;transition:transform .4s,box-shadow .4s}
+.die .sym{font-size:38px;text-shadow:0 1px 1px #fff}.die.rolling{animation:roll3d .24s linear infinite!important}
+@keyframes roll3d{0%{transform:translateY(-12px) rotate(-17deg) scale(.92)}50%{transform:translateY(9px) rotate(14deg) scale(1.06)}100%{transform:translateY(-12px) rotate(-17deg) scale(.92)}}
+.die.landed{animation:land .5s ease-out both;box-shadow:inset -8px -8px 18px #674a8d55,0 8px 0 #81638c,0 0 26px #ffda80b5}
+@keyframes land{0%{transform:translateY(-25px) scale(1.2) rotate(15deg)}65%{transform:translateY(5px) scale(.95)}100%{transform:translateY(0) scale(1)}}
+.primary{background:linear-gradient(110deg,#f8dca1,#e9b5f5,#f9c986);box-shadow:0 5px 0 #926b7e,0 0 22px #edbf8d3d;cursor:pointer}
+.result.show{animation:reveal 1s cubic-bezier(.2,.7,.3,1) both;border-color:#eecb83a3;box-shadow:0 0 35px #f2c67e32,0 16px 45px #0005}
+@keyframes reveal{from{opacity:0;transform:translateY(38px) scale(.94);filter:blur(9px)}to{opacity:1;transform:none;filter:blur(0)}}
+body.darkmode{background:radial-gradient(ellipse at 45% 10%,#53203e,#170e24 55%,#08080d)}body.darkmode .panel{border-color:#c778a15c;background:linear-gradient(140deg,#332037e0,#110f1dd9)}body.darkmode .result.show{box-shadow:0 0 40px #d9608e33}body.darkmode h1{color:#f7a7c7}body.darkmode .die{border-color:#e7a4c1}body.darkmode .primary{background:linear-gradient(110deg,#ed9dbd,#cda1ff)}
+.black{border:1px solid #d88bab;background:#170e1b}.black b{color:#ffb3ce}
+@media(prefers-reduced-motion:reduce){body:before,body:after,.diceRow:before{animation:none}.result.show,.die.landed{animation:none}}
 
-<section id="choose" class="screen"><div class="card">
-<img class="hero" src="umeko_check.png" alt="考えるうめこ" onerror="this.style.display='none'">
-<div class="progress"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div>
-<h2 id="question"></h2><div class="picks" id="picks"></div>
-<div class="colors" id="colors"></div>
-<p class="sub">理由はいらん。「これ」で押せ🤣</p>
-</div></section>
+/* うめこキャラクター：場面別の画像 */
+.scene-art{display:block;width:100%;height:auto;border-radius:18px;border:1px solid #edc78355;box-shadow:0 12px 32px #0006;margin:10px 0 16px;object-fit:cover}
+.scene-rolling{display:none}
+body.is-rolling .scene-rolling{display:block;animation:sceneGlow 1s ease-in-out infinite alternate}
+body.is-rolling .scene-start{display:none}
+.scene-result{margin:0 0 18px}
+@keyframes sceneGlow{from{filter:brightness(.92);transform:scale(.99)}to{filter:brightness(1.14);transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){body.is-rolling .scene-rolling{animation:none}}
 
-<section id="loading" class="screen"><div class="card loader">
-<div class="spin">🔍</div><h2>うめこ解析中……</h2>
-<p><b>ちょっと待て。今あんたの中身バラしてる🤣</b></p>
-</div></section>
+/* 占星術の天球儀・星座盤モチーフ */
+header:before{content:"☾  ✧  ♈  ☉  ♎  ✧  ☽";display:block;color:#d9b579;letter-spacing:9px;font-size:17px;margin-bottom:14px;text-shadow:0 0 16px #f8d89c}
+header:after{content:"✦  CELESTIAL ORACLE  ✦";display:block;color:#b9a4d5;font-size:10px;letter-spacing:3px;margin-top:13px}
+.panel{position:relative;overflow:hidden;border:1px solid #d6ad6590;box-shadow:inset 0 0 0 1px #e3c88d1a,0 14px 35px #0005}
+.panel:before{content:"✦";position:absolute;right:17px;top:12px;color:#d9b36b77;font-size:24px;pointer-events:none}
+h2{letter-spacing:.4px}
+.panel h2:after{content:"  ✧";color:#d9b36b}
+.choices{max-height:none!important;overflow:visible!important;display:block!important}
+.genre{border:1px solid #c8a66c77;border-radius:15px;margin:9px 0;background:linear-gradient(105deg,#392c55aa,#1b1b39bb);overflow:hidden}
+.genre summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 13px;cursor:pointer;color:#fff0d3;font-weight:700;font-size:14px}
+.genre summary::-webkit-details-marker{display:none}
+.genre-right{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:400;color:#d1c0df;white-space:nowrap}
+.chevron{font-size:20px;color:#f6d18a;display:inline-block;transition:transform .2s}
+.genre[open] .chevron{transform:rotate(180deg)}
+.genre-questions{display:grid;gap:7px;padding:0 10px 12px}
+.question-option{width:100%;text-align:left;border:1px solid #c9b3d34a;background:#ffffff0b;color:#f9f1ff;padding:13px 12px;border-radius:10px;font-size:13px;line-height:1.5}
+.question-option.active{background:#7952a7;border-color:#f0cb90;box-shadow:0 0 0 1px #f0cb9066}
+.question-option.active:before{content:"✦ ";color:#ffe5a3}
+.selected-question{border-top:1px solid #e2c18b44;margin-top:15px;padding:14px 3px 1px;color:#ffe1a5;font-size:13px;line-height:1.7}
+.diceRow{box-shadow:inset 0 0 50px #08091c,0 0 0 1px #d6ae7480,0 16px 28px #0005}
+/* 豪華な星座盤と金の装飾 */
+.app:before{content:"☉  ☽  ☿  ♀  ♂  ♃  ♄  ♅  ♆  ♇  ☊  ☋";display:block;text-align:center;color:#f4d59b;font-size:14px;letter-spacing:5px;line-height:2.3;border:1px solid #d6b57399;border-radius:50%;max-width:340px;margin:12px auto 20px;box-shadow:0 0 30px #f6cb7433,inset 0 0 25px #bb87e13b;animation:halo 12s ease-in-out infinite alternate}
+@keyframes halo{to{box-shadow:0 0 45px #f6cb7477,inset 0 0 30px #bb87e17c}}
+.panel{background-image:radial-gradient(circle at 95% 4%,#cda6ff1c,transparent 32%),linear-gradient(145deg,#33274cba,#17172dc9)}
+.panel:after{content:"✧ ── ☾ ✦ ☉ ✦ ☽ ── ✧";display:block;text-align:center;color:#d5ad70;opacity:.65;font-size:12px;letter-spacing:3px;margin:16px 0 0;pointer-events:none}
+#diceStage{filter:drop-shadow(0 0 10px #d1a3ff55)}
+#saveOverlay{position:fixed;inset:0;z-index:9999;background:#080717ed;display:none;flex-direction:column;align-items:center;justify-content:center;padding:15px;gap:10px}
+#saveOverlay.open{display:flex}#saveOverlay img{display:block;max-width:95vw;max-height:73vh;object-fit:contain;border:2px solid #eac581;border-radius:12px;-webkit-touch-callout:default;user-select:auto}
+#saveOverlay p{color:#ffe3a9;text-align:center;font-size:14px;margin:0}#closeSave{background:#e7c891;color:#251531;border:0;border-radius:12px;padding:12px 28px;font-weight:700;font-size:16px}
+@media(prefers-reduced-motion:reduce){.app:before{animation:none}}
 
-<section id="finish" class="screen"><div class="card">
-<img class="hero" src="umeko_result.png" alt="結果発表うめこ" onerror="this.style.display='none'">
-<div class="result" id="resultCard"><h2>🎨 本日のバレました結果</h2>
-<div class="picks" id="resultPicks"></div>
-<div class="box"><div class="label">① 外に見せてるあんた</div><div id="r1"></div></div>
-<div class="box"><div class="label">② 誰にも見せてないあんた</div><div id="r2"></div></div>
-<div class="box"><div class="label">③ 今ほんまに欲しいもん</div><div id="r3"></div></div>
-<div class="big" id="summary"></div>
-<div class="extra">🥸 うめこの余計なひと言<br><span id="extra"></span></div>
-</div>
-<div class="actions">
-<button class="mainbtn" onclick="restart()">もう一回バラす🤣</button>
-<button class="secondary" onclick="shareResult()">友達にもやらせる</button>
-<a class="line" href="https://lin.ee/O23Sb7o" target="_blank" rel="noopener">うめこの公式LINEへ</a>
-</div></div></section>
-</main>
-<script>
-const palette=[
-{name:"赤",c:"#ef4444",out:"勢いと存在感で前に出る人。やると決めたら早い。",inside:"ほんまは結果を出したい気持ちが強め。止まるより動いていたい。",need:"遠慮せず『これやりたい』を一個通すこと。"},
-{name:"ピンク",c:"#ff86ad",out:"やわらかく、人との空気を大事にしてる人。",inside:"優しくされたいし、自分にももうちょい優しくしたい。",need:"気を遣わんでええ時間。甘やかしも今日は仕事や🤣"},
-{name:"オレンジ",c:"#f97316",out:"ノリと親しみやすさで場を動かす人。",inside:"退屈がいちばん苦手。楽しい刺激を探してる。",need:"笑える予定を一個。義務だけで一日埋めるな。"},
-{name:"黄",c:"#facc15",out:"明るく軽やか。好奇心であちこちアンテナ立ってる人。",inside:"頭の中は思った以上に忙しい。次の面白いこと考え中。",need:"考えるだけで終わらん小さな一歩。"},
-{name:"黄緑",c:"#a3e635",out:"新しいものを取り入れるのが上手。伸びしろ探し中の人。",inside:"変わりたい気持ちと、今のままでもええ気持ちが同居中。",need:"全部変えずに一個だけ新しくすること。"},
-{name:"緑",c:"#22c55e",out:"落ち着いて見えて、周りの調整もできる人。",inside:"平和が欲しい。揉め事と余計な予定は今日は要らん。",need:"余白。何もしない時間を予定として確保。"},
-{name:"水色",c:"#67d7e8",out:"爽やかで話しやすい。風通しを作る人。",inside:"重たい空気から離れて、ちょっと自由になりたい。",need:"場所か気分を変えること。外の空気でも十分。"},
-{name:"青",c:"#3b82f6",out:"冷静でちゃんとして見える人。任されるとやる。",inside:"実は静かに考えたい。雑音が多いと電池が減る。",need:"一人で頭を整理する時間。返事はあとでもええ🤣"},
-{name:"紫",c:"#8b5cf6",out:"自分の世界観を持ってる人。普通だけでは物足りん。",inside:"『分かる人だけ分かって』な部分を大事にしてる。",need:"好きなものにどっぷり浸かる時間。"},
-{name:"茶",c:"#9a6a45",out:"堅実で地に足ついてる人。結局ちゃんとやる。",inside:"安心できる土台を確認したい気分。",need:"生活を一個整えること。机でも財布でもええ。"},
-{name:"白",c:"#f8fafc",border:"#cbd5e1",out:"すっきり、ニュートラルに見せたい人。",inside:"一回リセットしたい。情報も予定もちょっと多い。",need:"足すより減らす。今日は一個やめて正解。"},
-{name:"黒",c:"#20242c",dark:true,out:"ブレへん雰囲気。簡単には中身を見せへん人。",inside:"自分のペースと境界線を守りたい気分。",need:"嫌なもんにちゃんとNO。愛想笑いは省エネ対象🤣"}
-];
-const qs=[
-"1色目｜外に見せてる自分。今いちばん気になる色は？",
-"2色目｜誰にも見せてない自分。次に惹かれる色は？",
-"3色目｜今ほんまに欲してるもの。最後はどれ？"
-];
-const extras=[
-"休みたい日に予定検索すな🤣","全部今日やらんでええ。明日の自分にも仕事残しとけ🤣",
-"『せっかくやし』で予定増やすな🤣","やる気待ちしてたら日ぃ暮れる。1ミリだけやれ。",
-"人の機嫌まで担当業務に入れんな🤣","迷ったら、いったん腹減ってないか確認せえ🤣",
-"余白はサボりちゃう。詰め込み過ぎ防止装置や。","答え出えへん日は、寝てから考えたらええ🤣"
-];
-let picks=[];
-function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");scrollTo(0,0)}
-function begin(){picks=[];show("choose");render()}
-function render(){
- document.getElementById("question").textContent=qs[picks.length];
- document.querySelectorAll(".dot").forEach((d,i)=>d.classList.toggle("on",i<=picks.length));
- document.getElementById("picks").innerHTML=picks.map(dot).join("");
-
- const el=document.getElementById("colors");
- el.innerHTML="";
-
- // 1回目は基本順。2回目・3回目はFisher-Yatesで必ず並び替える。
- let order=[...Array(palette.length).keys()];
- if(picks.length>0){
-   let original=order.join(",");
-   do{
-     for(let j=order.length-1;j>0;j--){
-       const k=Math.floor(Math.random()*(j+1));
-       [order[j],order[k]]=[order[k],order[j]];
-     }
-   }while(order.join(",")===original);
- }
-
- order.forEach(i=>{
-   const x=palette[i];
-   const b=document.createElement("button");
-   b.className="color"+(x.dark?" dark":"");
-   // 見える文字は完全にゼロ
-   b.textContent="";
-   b.innerHTML="";
-   b.setAttribute("aria-label",x.name);
-   b.style.background=x.c;
-   if(x.border)b.style.borderColor=x.border;
-   b.onclick=()=>pick(i);
-   el.appendChild(b);
- });
+/* モードごとの鑑定キャラクター */
+.scene-result{width:100%;height:auto;object-fit:contain;display:block}
+body.darkmode .result{border-color:#d8a15e;background:linear-gradient(145deg,#35203e,#171225)}
+</style></head><body><main class="app"><header><div class="eyebrow">UMЕKO ASTRO DICE</div><h1>🎲 星のサイコロ相談室</h1><p>振ってみな。星は何て言うてる？</p></header><img class="scene-art scene-start" src="astro_start.png" alt="うめこが星のサイコロ相談室へご案内" onerror="this.style.display='none'"><section class="panel"><h2>① 何について聞いてみる？</h2><div class="choices" id="choices"></div><div class="selected-question" id="questionText" aria-live="polite"></div></section><section class="panel"><h2>② 鑑定モードを選ぶ</h2><div class="modebar"><button class="mode active" data-mode="astro">🔮 本格占星術</button><button class="mode" data-mode="black">😈 黒うめこ</button></div><p class="small">出目はそのまま、読み方の口調が変わるで。</p></section><section class="panel"><h2>③ ダイスを振る</h2><img class="scene-art scene-rolling" src="astro_rolling.png" alt="うめこがダイスを応援中" onerror="this.style.display='none'"><div class="diceRow"><canvas id="diceStage" aria-label="3つのダイスが転がるアニメーション"></canvas><div class="die" id="d0"><small>天体</small><div class="sym">☉</div><strong>太陽</strong></div><div class="die" id="d1"><small>星座</small><div class="sym">♌</div><strong>獅子座</strong></div><div class="die" id="d2"><small>ハウス</small><div class="sym">Ⅴ</div><strong>第5ハウス</strong></div></div><button id="roll" class="primary">🎲 3つのダイスを振る！</button><p class="small">※12面ダイス3個の独立抽選。演出中は連続タップ不可。</p></section><section class="panel result" id="result"><img id="resultCharacter" class="scene-art scene-result" src="astro_result.png" alt="うめこが鑑定結果をお届け" onerror="this.style.display='none'"><span class="tag" id="resultTag"></span><h2>✨ 星からのメッセージ</h2><div class="lead" id="lead"></div><div class="bodytext" id="reading"></div><h2 style="margin-top:20px">🌱 現実での活かし方</h2><div class="bodytext" id="action"></div><div id="blackBox" class="black hidden" style="margin-top:16px"><b>😈 黒うめこの監査結果</b><div class="bodytext" id="blackText"></div></div><h2 style="margin-top:22px">📖 もっと詳しく見る</h2><div class="details" id="details"></div><div class="actions" style="margin-top:20px"><button id="save">📸 画像保存</button><button id="copy">📋 結果コピー</button></div><p class="small" id="saveHelp">iPhoneでは画像を開いて長押し保存できるで。</p></section><div class="footer">参考：『ASTRO DICE／みろくだいす』369イベント実行委員（2025年11月発行）<br>象徴を使った自己理解のための読み解きです。未来や他人の気持ちを断定するものではありません。</div></main><div id="saveOverlay" role="dialog" aria-modal="true" aria-label="鑑定画像を保存"><p>📸 画像を長押しして「写真に保存」してな！</p><img id="savePreview" alt="保存用の鑑定画像"><button id="closeSave" type="button">✕ 閉じる</button></div><script>
+const P=[["☉", "太陽", "自分らしさ・目的", "自分の意思や目標を明確にする", "主役を誰かに譲りっぱなしにせんとき"], ["☽", "月", "感情・安心", "心の安心と素直な気持ちを大切にする", "気持ちにフタして平気な顔せんとき"], ["☿", "水星", "思考・伝達", "情報を整理して言葉にする", "察してもらう前に言葉にしよか"], ["♀", "金星", "愛・楽しみ・美", "心地よさと人との調和を育てる", "好かれるためだけに自分を安売りせんとき"], ["♂", "火星", "行動・エネルギー", "迷いを行動に変えて一歩踏み出す", "考えてるだけで走った気にならんとき"], ["♃", "木星", "拡大・発展", "可能性を広げて学びを増やす", "話だけ大きくして満足せんとき"], ["♄", "土星", "試練・努力", "責任と継続で土台を整える", "面倒な基本を飛ばして近道探さんとき"], ["♅", "天王星", "革新・自由", "古い習慣を見直して新しい方法を試す", "変わりたい言いながら昨日と同じことしてへん？"], ["♆", "海王星", "夢・直感", "想像力を活かしつつ現実も確かめる", "夢はええけど確認作業も忘れんとき"], ["♇", "冥王星", "変容・再生", "根本的な見直しと手放しに向き合う", "もう終わってること握りしめんとき"], ["☊", "ドラゴンヘッド", "成長・向かう方向", "慣れない挑戦にも目を向ける", "いつもの安全地帯から片足出してみ"], ["☋", "ドラゴンテール", "慣れたパターン・過去", "慣れたやり方を振り返って選び直す", "昔の成功例を永久保存せんとき"]],S=[["♈", "牡羊座", "勢いよく", "まず小さく始める", "スタート・情熱・勢い", "鉄製品・帽子・ヘアアクセサリー"], ["♉", "牡牛座", "じっくり着実に", "五感と自分のペースを大切にする", "安定・感覚・物質", "ネックレス・スカーフ・香水・アロマ"], ["♊", "双子座", "軽やかに対話しながら", "情報を集めて伝える", "情報・会話・軽やかさ", "文房具・スマホ・雑誌・ブレスレット・手袋"], ["♋", "蟹座", "思いやりをもって", "安心できるつながりを守る", "家族・優しさ・感情", "銀製品・食器・家庭用雑貨・家具"], ["♌", "獅子座", "堂々と創造的に", "自分の魅力を表現する", "自信・誇り・華やかさ", "貴金属・楽器・高級品・ハートモチーフ"], ["♍", "乙女座", "丁寧に具体的に", "細部を整えて役立てる", "整理・分析・健康", "手帳・写真・オルゴール・薬やサプリメント"], ["♎", "天秤座", "バランスを取りながら", "相手と自分の希望をすり合わせる", "バランス・美・人間関係", "化粧品・洋服・鏡・花柄モチーフ"], ["♏", "蠍座", "深く集中して", "本音と信頼を見つめる", "深さ・集中・絆", "キャンドル・革製品・お守り・占いグッズ"], ["♐", "射手座", "視野を広く自由に", "未知の学びや挑戦に触れる", "冒険・自由・発展", "本・輸入品・地球儀・旅行グッズ"], ["♑", "山羊座", "計画的に粘り強く", "目標までの段取りを組む", "社会・努力・責任", "アンティーク・ジュエリー・辞書・形見"], ["♒", "水瓶座", "独自の視点で", "常識に縛られず工夫する", "革新・個性・理想", "水晶・星柄・スケルトン・蛍光"], ["♓", "魚座", "感性と共感を活かして", "直感を受け止めて形にする", "優しさ・夢・共感", "靴・靴下・アンクレット・浄化グッズ"]],H=[["自分自身", "自分らしさや第一印象", "自然の中・パワースポット"], ["お金・才能", "収入・持ち物・価値観", "寝室・飲食店"], ["学び・言葉", "会話・情報・身近な学び", "学校やスクール・近所"], ["家・基盤", "家族・居場所・心の土台", "家・地元・女性が集まる場所"], ["恋愛・創造", "趣味・自己表現・楽しみ", "イベント・ホール・ライブ・趣味の場"], ["仕事・健康", "日々の仕事・習慣・セルフケア", "職場・ジム・習い事"], ["人間関係", "対等な関係・パートナーシップ", "パーティー・街・百貨店"], ["絆・再生", "深い絆・共有・変化", "バーや酒場・夜の街・旅先・占いの館"], ["旅・学問", "専門的な学び・遠方・世界観", "神社・仏閣・旅先・図書館"], ["社会・使命", "キャリア・社会的役割・目標", "公共施設・博物館・歴史的な場所"], ["未来・仲間", "友人・コミュニティ・未来の理想", "メディア・SNS・コミュニティ"], ["潜在意識", "休息・内面・目に見えない感情", "温泉・癒しの場・おしゃれな町"]],Q=[["💕", "恋愛", "気になる人との距離を縮めるには？", "対話の仕方と信頼の育て方", "相手の反応を確かめながら一歩ずつ交流する"], ["💕", "恋愛", "今の恋愛で大切にしたいことは？", "愛情と自分の望みのバランス", "自分が大切にしたいことを一つ言葉にする"], ["💕", "恋愛", "パートナーとの関係を良くするには？", "日常のすれ違いと協力", "要望を責めずに具体的に伝える"], ["💕", "恋愛", "恋愛で繰り返す自分の課題は？", "繰り返しやすい反応や思い込み", "似た場面での自分の反応を振り返る"], ["💕", "恋愛", "新しい出会いに向けて意識することは？", "自分らしい交流と出会い方", "無理なく参加できる交流の場を探す"], ["💼", "仕事", "今の仕事で意識することは？", "役割と日々の優先順位", "今週の優先事項を一つ決める"], ["💼", "仕事", "職場の人間関係を良くするには？", "仕事上の対話と境界線", "期待と役割を確認する"], ["💼", "仕事", "転職を考えるうえでのヒントは？", "働き方の価値観と準備", "辞めたい理由と次に求める条件を分けて書く"], ["💼", "仕事", "自分の才能をどう活かせばいい？", "得意な行動と貢献の仕方", "人に喜ばれた経験を一つ振り返る"], ["💼", "仕事", "新しい仕事や活動を始めるには？", "始動に必要な段取りと協力", "小さく試せる第一歩を決める"], ["💰", "お金", "お金との付き合い方を見直すには？", "安心と支出の価値観", "何にお金を使うと納得できるか整理する"], ["💰", "お金", "収入を増やすために意識することは？", "提供価値と現実的な機会", "自分が提供できる価値を具体化する"], ["💰", "お金", "自分の価値をどう伝えたらいい？", "魅力と価格の伝え方", "誰に何を届けるか一文で書く"], ["💰", "お金", "今の支出を見直すポイントは？", "習慣的な出費と優先順位", "一週間の支出を振り返る"], ["💰", "お金", "豊かさを感じるために必要なことは？", "満足感と持っている資源", "すでにある支えを三つ数える"], ["🫂", "人間関係", "苦手な人とどう付き合えばいい？", "距離感と必要な対話", "守りたい境界線を一つ決める"], ["🫂", "人間関係", "家族との関係で意識することは？", "家庭内の安心と役割分担", "自分の希望を短く伝える"], ["🫂", "人間関係", "友人との距離感をどう保つ？", "親しさと自分の時間", "無理なく続く連絡頻度を考える"], ["🫂", "人間関係", "人に振り回されないためには？", "自分の意思と相手への配慮", "引き受ける前に一度考える"], ["🫂", "人間関係", "今の人間関係で見直すことは？", "関係の偏りと信頼", "疲れる場面と安心する場面を書き出す"], ["🌙", "心", "今のモヤモヤを整理するには？", "感情の輪郭と原因", "気持ちに名前をつける"], ["🌙", "心", "自分の本音に気づくには？", "期待と本当の希望の違い", "誰にも見せないメモに本音を書く"], ["🌙", "心", "手放した方がいい考え方は？", "固定観念と選び直し", "自分に課している「べき」を一つ見つける"], ["🌙", "心", "自信を育てるためには？", "自己評価と積み重ね", "できたことを一つ記録する"], ["🌙", "心", "今の自分に必要な休息やケアは？", "負担と回復のバランス", "休める時間を先に確保する"], ["🌟", "未来", "今日意識したいテーマは？", "今日の優先事項と心構え", "今日できる小さな行動を一つ選ぶ"], ["🌟", "未来", "目標に近づくための一歩は？", "目標の具体化と行動", "最初の15分でできる作業を決める"], ["🌟", "未来", "迷っている計画をどう考える？", "可能性と懸念の整理", "メリットと不安を両方書く"], ["🌟", "未来", "新しい挑戦で意識することは？", "挑戦の動機と準備", "試す範囲と期限を決める"], ["🌟", "未来", "これからの自分が伸ばすべき力は？", "成長の方向と継続", "伸ばしたい力を一つ選んで練習する"]];
+let category=0,mode='astro',draw=null,busy=false;
+const el=id=>document.getElementById(id);
+const genreOrder=["恋愛","仕事","お金","人間関係","心","未来"];
+const genreLabels={"恋愛":"💕 恋愛・パートナー","仕事":"💼 仕事・才能","お金":"💰 お金・豊かさ","人間関係":"🫂 人間関係・家族","心":"🌙 心・自己成長","未来":"🌟 未来・行動"};
+function choose(i){category=i;document.querySelectorAll('.question-option').forEach(b=>{const active=Number(b.dataset.i)===i;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});el('questionText').textContent='✦ 選択中：'+Q[i][2];if(draw)render()}
+el('choices').innerHTML=genreOrder.map((g,gi)=>`<details class="genre" ${gi===0?'open':''}><summary><span>${genreLabels[g]}</span><span class="genre-right">5つの質問 <span class="chevron">⌄</span></span></summary><div class="genre-questions">${Q.map((q,i)=>q[1]===g?`<button type="button" class="question-option" data-i="${i}" aria-pressed="false">${q[2]}</button>`:'').join('')}</div></details>`).join('');
+document.querySelectorAll('.question-option').forEach(b=>b.onclick=()=>choose(Number(b.dataset.i)));choose(0);
+document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll('.mode').forEach(x=>x.classList.toggle('active',x===b));document.body.classList.toggle('darkmode',mode==='black');if(draw)render()});
+function showDice(indices){let a=[P[indices[0]],S[indices[1]],H[indices[2]]];for(let i=0;i<3;i++){el('d'+i).querySelector('.sym').textContent=i===2?String(indices[i]+1):a[i][0];el('d'+i).querySelector('strong').textContent=i===2?'第'+(indices[i]+1)+'ハウス':a[i][1]}}
+function randomIndex(){const a=new Uint32Array(1);if(window.crypto?.getRandomValues){crypto.getRandomValues(a);return a[0]%12}return Math.floor(Math.random()*12)}
+// Canvasの盤面で12面ダイスを跳ねさせる。抽選はアニメーションとは独立。
+const stage=el('diceStage'),g=stage.getContext('2d');
+let particles=[],actors=[],animation=0,lastFrame=0,cosmicActive=false,landingRings=[];
+const faceSymbols=[P.map(x=>x[0]),S.map(x=>x[0]),Array.from({length:12},(_,i)=>String(i+1))];
+function sizeStage(){const r=stage.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,2);stage.width=Math.round(r.width*ratio);stage.height=Math.round(r.height*ratio);g.setTransform(ratio,0,0,ratio,0,0);return {w:r.width,h:r.height}}
+function initActors(){const {w,h}=sizeStage();actors=[0,1,2].map((i)=>({x:w*(.19+i*.31),y:h*.54,vx:0,vy:0,angle:0,spin:0,size:Math.min(43,w*.115),face:i===0?0:i===1?4:4,stop:false,phase:0}));paint(performance.now())}
+function polygon(cx,cy,r,n=10,rot=0){g.beginPath();for(let i=0;i<n;i++){const a=i*Math.PI*2/n+rot;const x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?g.lineTo(x,y):g.moveTo(x,y)}g.closePath()}
+function paint(now){const {width,height}=stage.getBoundingClientRect(),w=width,h=height;g.clearRect(0,0,w,h);const halo=g.createRadialGradient(w/2,h*.47,8,w/2,h*.47,w*.6);halo.addColorStop(0,'#58426c');halo.addColorStop(1,'#141329');g.fillStyle=halo;g.fillRect(0,0,w,h);
+g.save();g.translate(w/2,h*.51);
+if(cosmicActive){g.rotate(now*.00042);g.strokeStyle='#f3d79b88';g.lineWidth=2;g.beginPath();g.ellipse(0,0,w*.44,w*.30,0,0,Math.PI*2);g.stroke();g.rotate(-now*.00084);g.strokeStyle='#c89cff88';g.beginPath();g.ellipse(0,0,w*.34,w*.23,0,0,Math.PI*2);g.stroke();g.rotate(now*.00042)}
+g.strokeStyle='#e8c58a38';g.lineWidth=1.4;for(let r of [w*.25,w*.37,w*.47]){g.beginPath();g.ellipse(0,0,r,r*.65,0,0,Math.PI*2);g.stroke()}for(let i=0;i<12;i++){let a=i*Math.PI/6;g.fillStyle='#f4dc9e80';g.font='16px serif';g.textAlign='center';g.fillText('✦',Math.cos(a)*w*.42,Math.sin(a)*w*.27+5)}g.restore();
+landingRings=landingRings.filter(r=>r.life>0);for(const r of landingRings){g.save();g.globalAlpha=r.life*.85;g.strokeStyle='#ffe2a1';g.lineWidth=3*r.life;g.beginPath();g.ellipse(r.x,r.y,r.radius+(1-r.life)*64,(r.radius+(1-r.life)*64)*.5,0,0,Math.PI*2);g.stroke();g.restore();r.life-=.035}
+particles=particles.filter(p=>p.life>0);for(let p of particles){g.globalAlpha=p.life;g.fillStyle='#ffe8ac';g.beginPath();g.arc(p.x,p.y,Math.max(.5,p.r*p.life),0,Math.PI*2);g.fill();p.x+=p.vx;p.y+=p.vy;p.life-=.024}g.globalAlpha=1;
+actors.forEach((a,i)=>{g.save();g.translate(a.x,a.y);g.rotate(a.angle);let squash=1+Math.min(.28,Math.abs(a.spin)*.08);g.scale(squash,1/squash);g.shadowColor='#000a';g.shadowBlur=18;g.shadowOffsetY=13;polygon(0,0,a.size,10,-Math.PI/2);const grad=g.createLinearGradient(-a.size,-a.size,a.size,a.size);grad.addColorStop(0,'#fffdf1');grad.addColorStop(.52,i===0?'#f5d8e6':i===1?'#d9d1ff':'#f3dba7');grad.addColorStop(1,'#9372a8');g.fillStyle=grad;g.fill();g.shadowBlur=0;g.shadowOffsetY=0;g.strokeStyle='#f8d18c';g.lineWidth=3;g.stroke();g.strokeStyle='#78618a77';g.lineWidth=1;polygon(0,0,a.size*.78,10,-Math.PI/2);g.stroke();g.rotate(-a.angle);g.fillStyle='#37254c';g.textAlign='center';g.textBaseline='middle';g.font=`bold ${a.face===11&&i===2?25:35}px -apple-system,serif`;g.fillText(faceSymbols[i][a.face],0,0);g.restore();g.textAlign='center';g.font='bold 12px -apple-system,sans-serif';g.fillStyle='#f8e8c7';g.fillText(['天体','星座','ハウス'][i],a.x,h-17)})}
+function burst(a){landingRings.push({x:a.x,y:a.y,radius:a.size*.6,life:1});for(let j=0;j<42;j++){let t=j*Math.PI/9;particles.push({x:a.x,y:a.y,vx:Math.cos(t)*(1+Math.random()*3),vy:Math.sin(t)*(1+Math.random()*3),r:2+Math.random()*2,life:1})}}
+initActors();window.addEventListener('resize',()=>{if(!busy)initActors()});
+el('roll').onclick=()=>{if(busy)return;busy=true;cosmicActive=true;landingRings=[];document.body.classList.add('is-rolling');el('roll').disabled=true;el('roll').textContent='🎲 コロコロ転がり中…';el('result').classList.remove('show');const final=[randomIndex(),randomIndex(),randomIndex()];const {w,h}=sizeStage();const start=performance.now();const ends=[1850,2450,3050];actors.forEach((a,i)=>{a.x=w*(.2+i*.3);a.y=h*.45;a.vx=(i===0?1:i===1?-1:1)*(5+i*1.1);a.vy=-8-i;a.spin=(i%2?-1:1)*(.24+i*.07);a.stop=false;a.face=randomIndex()});let previous=start;
+function tick(now){const dt=Math.min((now-previous)/16.67,2);previous=now;const elapsed=now-start;actors.forEach((a,i)=>{if(a.stop)return;if(elapsed>=ends[i]){a.stop=true;a.x=w*(.19+i*.31);a.y=h*.53;a.angle=0;a.face=final[i];burst(a);return}a.vy+=.42*dt;a.x+=a.vx*dt;a.y+=a.vy*dt;a.angle+=a.spin*dt;a.spin*=Math.pow(.994,dt);const r=a.size*.8;if(a.x<r){a.x=r;a.vx=Math.abs(a.vx)*.82}if(a.x>w-r){a.x=w-r;a.vx=-Math.abs(a.vx)*.82}if(a.y>h-53){a.y=h-53;if(a.vy>2){for(let j=0;j<4;j++)particles.push({x:a.x+(Math.random()-.5)*a.size,y:a.y+a.size*.5,vx:(Math.random()-.5)*3,vy:-Math.random()*3,r:2+Math.random()*2,life:.8})}a.vy=-Math.abs(a.vy)*.73;a.vx*=.92}if(a.y<r){a.y=r;a.vy=Math.abs(a.vy)*.85}if(Math.random()<.38)a.face=randomIndex()});paint(now);if(elapsed<3200){animation=requestAnimationFrame(tick)}else{draw=final;showDice(draw);busy=false;cosmicActive=false;document.body.classList.remove('is-rolling');el('roll').disabled=false;el('roll').textContent='🎲 もう一度振る！';render();setTimeout(()=>el('result').scrollIntoView({behavior:'smooth',block:'start'}),300)}}animation=requestAnimationFrame(tick)};
+function data(){
+ const p=P[draw[0]],s=S[draw[1]],h=H[draw[2]],c=Q[category];
+ const [emoji,genre,question,focus,step]=c;
+ const domain={"恋愛":"相手の意思を尊重しつつ、関係を育てる", "仕事":"役割や働き方を現実的に見直す", "お金":"価値観と収支の両面から考える", "人間関係":"自分と相手の境界線を整える", "心":"感情を決めつけず丁寧に観察する", "未来":"行動の選択肢を比較して一歩を決める"}[genre];
+ const lens={"恋愛":"親密さ・信頼・伝え方", "仕事":"責任・協力・実務", "お金":"資源・対価・優先順位", "人間関係":"距離感・対話・役割", "心":"安心・反応・内省", "未来":"準備・挑戦・見通し"}[genre];
+ const houseLink=`第${draw[2]+1}ハウスが示す「${h[1]}」は、今回の相談では${lens}を考えるための切り口。`;
+ const headline=`「${focus}」を、${s[1]}らしい方法で見直すとき。`;
+ const reading=`質問「${question}」について。\n\n${p[1]}は「${p[2]}」を象徴し、この問いでは「${p[3]}」という働きに注目する。${s[1]}は「${s[4]}」の性質を加えるため、${s[2]}取り組むことが一つの読み方になる。\n\n${houseLink} ハウスは質問の答えを決定するものではなく、関連する場面を示す補助線やで。\n\n総合すると、${domain}ことを軸に「${focus}」を点検してみよう。`;
+ const action=`まずは「${step}」。そのとき、${s[3]}ことも意識してみて。${p[3]}という天体のテーマを、無理のない行動につなげよう。`;
+ const black=`【${genre}の監査】\n「${focus}」が論点やで。${p[4]}。\n${s[1]}の得意技は「${s[4]}」。せやけど${h[0]}の話を飛ばして結論だけ欲しがっても、星は代わりに実行してくれへん🤣\nまず「${step}」。口だけ会議、ここで閉会！`;
+ return {p,s,h,c,headline,reading,action,black};
 }
-function dot(i){const x=palette[i];return `<span class="pick" title="${x.name}" style="background:${x.c};${x.border?'border-color:'+x.border:''}"></span>`}
-function pick(i){picks.push(i);if(picks.length<3){render()}else{show("loading");setTimeout(result,1250)}}
-function result(){
- const a=palette[picks[0]],b=palette[picks[1]],c=palette[picks[2]];
- document.getElementById("resultPicks").innerHTML=picks.map(dot).join("");
- r1.textContent=a.out;r2.textContent=b.inside;r3.textContent=c.need;
- const same=new Set(picks).size;
- let lead=same===1?"同じ色を3回選ぶあたり、今日は気持ちがかなりハッキリしとる。":
- same===2?"同じ色がかぶったな。今は一個のテーマが強めに出てるで。":
- "3色バラバラ。今のあんた、ひとことで片付けられへん🤣";
- summary.textContent=`💥 3色まとめてバラすと\n「${lead} 外では${a.name}、内側は${b.name}、欲しいのは${c.name}の要素。今日は『全部ちゃんと』より、今いちばん気になることを一個でええ。」`;
- extra.textContent=extras[(picks[0]*7+picks[1]*3+picks[2])%extras.length];
- show("finish")
+function render(){if(!draw)return;const character=el('resultCharacter');character.src=mode==='black'?'astro_black.PNG':'astro_result.png';character.alt=mode==='black'?'黒うめこが鑑定結果を監査':'うめこが鑑定結果をお届け';character.style.display='block';const d=data();el('result').classList.add('show');el('resultTag').textContent=`${d.p[0]} ${d.p[1]} × ${d.s[0]} ${d.s[1]} × 第${draw[2]+1}ハウス`;el('lead').textContent=d.headline;el('reading').textContent=mode==='astro'?d.reading:`${d.c[2]}\n\n${d.p[1]}の「${d.p[2]}」を、${d.s[1]}の性質と第${draw[2]+1}ハウスの「${d.h[0]}」から読むで。`;el('action').textContent=d.action;el('blackBox').classList.toggle('hidden',mode!=='black');el('blackText').textContent=d.black;const detail=[['🪐 天体の意味',`${d.p[1]}：${d.p[2]}。${d.p[3]}。`],['♈ 星座の性質',`${d.s[1]}：${d.s[4]}。${d.s[3]}。`],['🏠 ハウスの領域',`第${draw[2]+1}ハウス：${d.h[0]}。${d.h[1]}。`],['👀 どう見られている？',`この出目を他人の本心の断定には使わず、${d.p[2]}が周囲にどう伝わっているかを振り返るヒントに。`],['🌟 使命・才能',`${d.p[3]}という資質を、${d.h[0]}で活かす可能性を考えてみよう。`],['🎁 ラッキーアイテム',`${d.s[1]}に対応するアイテム例：${d.s[5]}。効果を保証するものではないで。`],['📍 関連する場所',`第${draw[2]+1}ハウスに対応する場所例：${d.h[2]}。`]];el('details').innerHTML=detail.map((x,i)=>`<button type="button" data-detail="${i}" aria-expanded="false">${x[0]} <span style="float:right">＋</span></button><div class="inner" id="detail${i}"></div>`).join('');detail.forEach((x,i)=>{el('detail'+i).textContent=x[1]});document.querySelectorAll('[data-detail]').forEach(b=>b.onclick=()=>{let x=el('detail'+b.dataset.detail);let open=x.classList.toggle('open');b.setAttribute('aria-expanded',String(open));b.querySelector('span').textContent=open?'−':'＋'})}
+function resultText(){if(!draw)return'';const d=data();return `星のサイコロ相談室
+質問：${d.c[2]}
+${d.p[1]} × ${d.s[1]} × 第${draw[2]+1}ハウス
+
+${d.headline}
+${mode==='astro'?d.reading:d.black}
+
+現実での活かし方
+${d.action}
+
+※象徴による自己理解のヒントです。`}
+el('copy').onclick=async()=>{let t=resultText();try{await navigator.clipboard.writeText(t);alert('コピーしたで！')}catch(e){const a=document.createElement('textarea');a.value=t;document.body.append(a);a.select();document.execCommand('copy');a.remove();alert('コピーを試したで。')}};
+function wrap(ctx,text,maxWidth){const lines=[];for(const para of text.split('\n')){if(!para){lines.push('');continue}let line='';for(const char of para){if(ctx.measureText(line+char).width>maxWidth&&line){lines.push(line);line=char}else line+=char}lines.push(line)}return lines}
+el('closeSave').onclick=()=>{el('saveOverlay').classList.remove('open');el('savePreview').removeAttribute('src')};
+el('saveOverlay').addEventListener('click',e=>{if(e.target===el('saveOverlay'))el('closeSave').click()});
+// 保存カードは描画時と計測時で同じフォントを使用する。
+function cardLines(ctx, text, font, width){ctx.font=font;return wrap(ctx,text,width)}
+function loadCardArt(){return new Promise(resolve=>{const img=new Image();let settled=false;const finish=value=>{if(!settled){settled=true;resolve(value)}};img.onload=()=>finish(img);img.onerror=()=>finish(null);img.src=mode==='black'?'astro_black.PNG':'astro_result.png';if(img.complete&&img.naturalWidth)finish(img)})}
+function cardSection(ctx,label,text,x,y,width,bodyFont){
+  ctx.font='bold 35px -apple-system,"Hiragino Sans",sans-serif';ctx.fillStyle='#f7d596';ctx.fillText(label,x,y);y+=60;
+  ctx.font=bodyFont;ctx.fillStyle='#f8f1ff';
+  for(const line of wrap(ctx,text,width)){if(line){ctx.fillText(line,x,y)}y+=51}
+  return y+30;
 }
-function restart(){picks=[];show("choose");render()}
-async function shareResult(){
- const text="『今のあんた、何色なん。』3色選んだら、だいたいバレる🤣";
- if(navigator.share){try{await navigator.share({title:"今のあんた、何色なん。",text,url:location.href});return}catch(e){}}
- try{await navigator.clipboard.writeText(location.href);alert("URLコピーしたで🤣")}catch(e){alert("このページのURLをコピーして友達に送ってな🤣")}
-}
+el('save').onclick=async()=>{
+ if(!draw)return;
+ const btn=el('save');btn.disabled=true;btn.textContent='📸 画像を作成中…';
+ try{
+  const d=data(),canvas=document.createElement('canvas'),ctx=canvas.getContext('2d');
+  if(!ctx)throw Error('Canvasが使えません');
+  const W=1080,pad=88,usable=W-pad*2,bodyFont='32px -apple-system,"Hiragino Sans","Yu Gothic",sans-serif';
+  const intro=mode==='astro'?d.reading:`${d.c[2]}\n\n${d.p[1]}の「${d.p[2]}」を、${d.s[1]}の性質と第${draw[2]+1}ハウスの「${d.h[0]}」から読むで。`;
+  const sections=[['✦ 今回のテーマ',d.headline],['✧ 星からのメッセージ',intro],['✦ 現実での活かし方',d.action]];
+  if(mode==='black')sections.push(['😈 黒うめこの監査結果',d.black]);
+  // 必ず本文フォントを設定してから折り返し・高さを計測。
+  let estimated=450;
+  for(const [label,body] of sections){estimated+=60+cardLines(ctx,body,bodyFont,usable).length*51+30}
+  const art=await loadCardArt();const artHeight=art?380:0;
+  canvas.width=W;canvas.height=Math.ceil(Math.max(1500,estimated+artHeight+240));
+  const h=canvas.height,gr=ctx.createLinearGradient(0,0,W,h);gr.addColorStop(0,'#39204e');gr.addColorStop(.55,'#211839');gr.addColorStop(1,'#0b1730');ctx.fillStyle=gr;ctx.fillRect(0,0,W,h);
+  ctx.strokeStyle='#e7bd78';ctx.lineWidth=7;ctx.strokeRect(24,24,W-48,h-48);ctx.lineWidth=2;ctx.strokeRect(40,40,W-80,h-80);
+  ctx.textAlign='center';ctx.fillStyle='#e7c88b';ctx.font='45px serif';ctx.fillText('☉   ☽   ♈   ♎   ✧   ♓   ♌',W/2,110);
+  ctx.font='bold 53px -apple-system,"Hiragino Sans",sans-serif';ctx.fillText('星のサイコロ相談室',W/2,184);
+  ctx.font='28px -apple-system,"Hiragino Sans",sans-serif';ctx.fillStyle='#dcc8ee';ctx.fillText(mode==='astro'?'🔮 本格占星術':'😈 黒うめこ',W/2,238);
+  ctx.textAlign='left';let y=310;ctx.font=bodyFont;ctx.fillStyle='#f8f1ff';
+  for(const line of wrap(ctx,'質問：'+d.c[2],usable)){ctx.fillText(line,pad,y);y+=50}
+  ctx.fillStyle='#f4d598';ctx.font='bold 31px -apple-system,"Hiragino Sans",sans-serif';
+  for(const line of wrap(ctx,`${d.p[1]} × ${d.s[1]} × 第${draw[2]+1}ハウス`,usable)){ctx.fillText(line,pad,y);y+=50}y+=40;
+  for(const [label,body] of sections)y=cardSection(ctx,label,body,pad,y,usable,bodyFont);
+  if(art){const maxW=usable,maxH=artHeight;const scale=Math.min(maxW/art.width,maxH/art.height);const dw=art.width*scale,dh=art.height*scale;ctx.drawImage(art,(W-dw)/2,y+12,dw,dh);y+=dh+36}
+  ctx.font='24px -apple-system,"Hiragino Sans",sans-serif';ctx.fillStyle='#cab9dc';ctx.fillText('※象徴による自己理解のヒントです。',pad,Math.min(y+30,h-132));ctx.fillStyle='#e7c88b';ctx.fillText('みろく流 ASTRO DICE ／ うめこ屋',pad,h-78);
+  el('savePreview').src=canvas.toDataURL('image/png');el('saveOverlay').classList.add('open');
+  el('saveHelp').textContent='保存画像を表示したで。画像を長押しして保存してな。';
+ }catch(e){el('saveHelp').textContent='画像生成エラー：'+e.message;alert('画像を作れへんかった：'+e.message)}
+ finally{btn.disabled=false;btn.textContent='📸 画像保存'}
+};
 </script></body></html>
